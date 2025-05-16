@@ -2,9 +2,9 @@
 export const API_CONFIG = {
   // URLs base de los microservicios
   URLS: {
-    MICROSERVICIO1: "http://18.206.188.45:8082",
-    MICROSERVICIO2: "http://18.206.188.45:8080",
-    MICROSERVICIO3: "http://18.206.188.45:8081",
+    MICROSERVICIO1: "http://3.93.177.171:8082",
+    MICROSERVICIO2: "http://3.93.177.171:8080",
+    MICROSERVICIO3: "http://3.93.177.171:8081",
   },
 
   // Opciones comunes para las solicitudes fetch
@@ -29,7 +29,7 @@ export const API_CONFIG = {
 }
 
 // URL base para todas las APIs
-export const API_BASE_URL = "http://18.206.188.45:8082"
+export const API_BASE_URL = "http://3.93.177.171:8082"
 
 // Función para crear una solicitud con reintentos
 export async function fetchWithRetry(
