@@ -75,19 +75,18 @@ async function fetchWithCache<T>(
   }
 }
 
-// Funciones para Aviones
-export async function getPlanes(page = 1, limit = 10): Promise<Plane[]> {
+export async function getPlanes(page = 0, size = 10): Promise<Plane[]> {
   try {
-    return await fetchWithCache<Plane[]>(
-      `${API_URL}/plane/all`,
+    const response = await fetchWithRetry(
+      `${API_URL}/plane/paged?page=${page}&size=${size}`,
       {
         method: "GET",
         ...API_CONFIG.FETCH_OPTIONS,
-      },
-      "planes",
-      page,
-      limit,
+      }
     )
+    const data = await response.json()
+    // Si la respuesta tiene la propiedad 'content', retorna eso
+    return data.content ?? data
   } catch (error) {
     console.error("Error detallado al obtener aviones:", error)
     if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
@@ -98,6 +97,7 @@ export async function getPlanes(page = 1, limit = 10): Promise<Plane[]> {
     throw error
   }
 }
+
 
 export async function getPlane(id: number): Promise<Plane> {
   try {
@@ -185,18 +185,18 @@ export async function deletePlane(id: number): Promise<void> {
 }
 
 // Funciones para Pilotos
-export async function getPilots(page = 1, limit = 10): Promise<Pilot[]> {
+export async function getPilots(page = 0, size = 10): Promise<Pilot[]> {
   try {
-    return await fetchWithCache<Pilot[]>(
-      `${API_URL}/pilot/all`,
+    const response = await fetchWithRetry(
+      `${API_URL}/pilot/paged?page=${page}&size=${size}`,
       {
         method: "GET",
         ...API_CONFIG.FETCH_OPTIONS,
-      },
-      "pilots",
-      page,
-      limit,
+      }
     )
+    const data = await response.json()
+    // Si la respuesta tiene la propiedad 'content', retorna eso
+    return data.content ?? data
   } catch (error) {
     console.error("Error al obtener pilotos:", error)
     throw error
@@ -288,19 +288,18 @@ export async function deletePilot(id: number): Promise<void> {
   }
 }
 
-// Funciones para Vuelos
-export async function getFlights(page = 1, limit = 10): Promise<Flight[]> {
+export async function getFlights(page = 0, size = 10): Promise<Flight[]> {
   try {
-    return await fetchWithCache<Flight[]>(
-      `${API_URL}/flight/all`,
+    const response = await fetchWithRetry(
+      `${API_URL}/flight/paged?page=${page}&size=${size}`,
       {
         method: "GET",
         ...API_CONFIG.FETCH_OPTIONS,
-      },
-      "flights",
-      page,
-      limit,
+      }
     )
+    const data = await response.json()
+    // Si la respuesta tiene la propiedad 'content', retorna eso
+    return data.content ?? data
   } catch (error) {
     console.error("Error al obtener vuelos:", error)
     throw error
